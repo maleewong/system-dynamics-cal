@@ -1,0 +1,72 @@
+{
+    "stocks": {
+        "S": 990.0,
+        "I": 10.0,
+        "R": 0.0
+    },
+    "parameters": {
+        "beta": 0.3,
+        "gamma": 0.1,
+        "N": 1000.0
+    },
+    "flows": {
+        "infection": {
+            "formula": "beta * S * I / N"
+        },
+        "recovery": {
+            "formula": "gamma * I"
+        }
+    },
+    "edges": [
+        {
+            "from": "beta",
+            "to": "infection",
+            "type": "information"
+        },
+        {
+            "from": "S",
+            "to": "infection",
+            "type": "information"
+        },
+        {
+            "from": "I",
+            "to": "infection",
+            "type": "information"
+        },
+        {
+            "from": "N",
+            "to": "infection",
+            "type": "information"
+        },
+        {
+            "from": "gamma",
+            "to": "recovery",
+            "type": "information"
+        },
+        {
+            "from": "I",
+            "to": "recovery",
+            "type": "information"
+        },
+        {
+            "from": "S",
+            "to": "infection",
+            "type": "outflow"
+        },
+        {
+            "from": "infection",
+            "to": "I",
+            "type": "inflow"
+        },
+        {
+            "from": "I",
+            "to": "recovery",
+            "type": "outflow"
+        },
+        {
+            "from": "recovery",
+            "to": "R",
+            "type": "inflow"
+        }
+    ]
+}
