@@ -1,0 +1,128 @@
+{
+  "stocks": {
+    "W": 5.6
+  },
+  "parameters": {
+    "a": 0.53,
+    "h": 0.8,
+    "m": 0.67,
+    "n": 0.81,
+    "Tmin": 15.0,
+    "Tmax": 41.0,
+    "Topt": 33.0,
+    "Acrit": 0.06,
+    "Amax": 1.4,
+    "BODcrit": 20.0,
+    "BODmax": 40.0,
+    "DOcrit": 1.0,
+    "DOmin": 0.3,
+    "s": 1e-06,
+    "No_Fish": 1.0
+  },
+  "flows": {
+    "anabolism": {
+      "formula": "(1-a) * b_obs(t) * if_then_else(T_obs(t) < Topt, exp(-4.6*((Topt-T_obs(t))/(Topt-Tmin))**4), exp(-4.6*((T_obs(t)-Topt)/(Tmax-Topt))**4)) * if_then_else(DO_obs(t) > DOcrit, 1.0, if_then_else(DO_obs(t) >= DOmin, (DO_obs(t)-DOmin)/(DOcrit-DOmin), 0.0)) * if_then_else(Am_obs(t) < Acrit, 1.0, if_then_else(Am_obs(t) <= Amax, (Amax-Am_obs(t))/(Amax-Acrit), 0.0)) * if_then_else(BOD_obs(t) < BODcrit, 1.0, if_then_else(BOD_obs(t) <= BODmax, (BODmax-BOD_obs(t))/(BODmax-BODcrit), 0.0)) * (1 - exp(-s*(Plankton_obs(t)/No_Fish))) * h * W**m"
+    },
+    "catabolism": {
+      "formula": "k_obs(t) * W**n"
+    }
+  },
+  "edges": [
+    {
+      "from": "Acrit",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "Amax",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "BODcrit",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "BODmax",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "DOcrit",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "DOmin",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "No_Fish",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "Tmax",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "Tmin",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "Topt",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "W",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "a",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "h",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "m",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "s",
+      "to": "anabolism",
+      "type": "information"
+    },
+    {
+      "from": "W",
+      "to": "catabolism",
+      "type": "information"
+    },
+    {
+      "from": "n",
+      "to": "catabolism",
+      "type": "information"
+    },
+    {
+      "from": "anabolism",
+      "to": "W",
+      "type": "inflow"
+    },
+    {
+      "from": "W",
+      "to": "catabolism",
+      "type": "outflow"
+    }
+  ],
+  "timeseries": {}
+}
